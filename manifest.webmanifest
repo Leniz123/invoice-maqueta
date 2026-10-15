@@ -1,0 +1,25 @@
+{
+  "name": "InVoice",
+  "short_name": "InVoice",
+  "lang": "es-CL",
+  "description": "Maqueta de la app de InVoice, con datos de ejemplo.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#03080E",
+  "theme_color": "#03080E",
+  "icons": [
+    {
+      "src": "icono-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

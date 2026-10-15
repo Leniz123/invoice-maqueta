@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#03080E">
+<meta name="description" content="Maqueta de la app de InVoice, con datos de ejemplo.">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="InVoice">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<title>InVoice App</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Diseño único de marca (mixto): bloque oscuro arriba, cuerpo claro abajo, un solo acento menta. */
+:root {
+  --noche: #03080E;      /* bloque oscuro de marca */
+  --noche-2: #0C1414;    /* superficie sobre lo oscuro */
+  --tinta-clara: #E9F0F1;
+  --tinta-tenue: #748386;
+  --papel: #F6F8F9;      /* cuerpo claro */
+  --blanco: #FFFFFF;
+  --borde: #E2E8F0;
+  --tinta: #03080E;
+  --gris: #64748B;
+  --menta: #16D3AB;
+  --menta-osc: #0B8F73;
+  --wsp: #25D366;
+  --ambar-f: #FEF3C7; --ambar-t: #92400E; --ambar: #FBBF24;
+  --azul-f: #E0F2FE;  --azul-t: #075985;
+  --verde-f: #DCFCE7; --verde-t: #166534;
+  --rojo: #EF4444;    --rojo-f: #FEE2E2; --rojo-t: #991B1B;
+  --mesa: #DDE4E5;    /* fondo detrás del marco en computador */
+  --marco: #0D1117;
+  --f: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --tabs: 62px;
+  color-scheme: light;
+}
+html, body { height: 100%; }
+body { margin: 0; background: var(--mesa); color: var(--tinta); font-family: var(--f); -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--menta); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* Marco: celular dibujado en computador, pantalla completa en el teléfono */
+.marco { min-height: 100%; display: flex; align-items: center; justify-content: center; padding-block: 24px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.tel { position: relative; width: 390px; height: min(844px, calc(100vh - 48px)); min-height: 620px; background: var(--papel); border: 10px solid var(--marco); border-radius: 46px; overflow: hidden; box-shadow: 0 30px 60px rgba(3, 8, 14, .28); }
+@media (max-width: 520px) {
+  body { background: var(--papel); }
+  .marco { padding: 0; min-height: 100%; height: 100%; display: block; }
+  .tel { width: 100%; height: 100%; min-height: 0; border: 0; border-radius: 0; box-shadow: none; }
+}
+.vista { position: absolute; inset: 0 0 var(--tabs) 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+.vista.sin-tabs { bottom: 0; }
+
+/* Pestañas */
+.tabs { position: absolute; left: 0; right: 0; bottom: 0; height: var(--tabs); display: flex; background: var(--blanco); border-top: 1px solid var(--borde); }
+.tabs[hidden] { display: none !important; }
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 10.5px; color: var(--gris); }
+.tab svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tab.on { color: var(--tinta); font-weight: 600; }
+.tab.on svg { stroke: var(--menta-osc); }
+
+/* Bloque oscuro superior */
+.cab { background: var(--noche); color: var(--tinta-clara); padding: 22px 20px 20px; border-radius: 0 0 26px 26px; }
+.cab .volver { font-size: 13px; color: var(--tinta-tenue); display: inline-flex; gap: 6px; align-items: center; padding: 4px 0; }
+.cab h1 { margin: 10px 0 0; font-size: 20px; font-weight: 700; letter-spacing: -.2px; text-wrap: balance; }
+.cab .sub { font-size: 12.5px; color: var(--tinta-tenue); margin-top: 3px; }
+.marca { font-weight: 700; font-size: 17px; letter-spacing: -.2px; }
+.marca b { color: var(--menta); font-weight: 700; }
+.etq { font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--gris); font-weight: 600; }
+.cab .etq { color: var(--tinta-tenue); }
+.grande { font-size: 32px; font-weight: 700; letter-spacing: -.6px; }
+.fila { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--noche-2); color: var(--menta); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+
+/* Cuerpo claro */
+.cuerpo { padding: 14px 18px 18px; }
+.lista { display: flex; flex-direction: column; }
+.item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 2px; border-bottom: 1px solid var(--borde); text-align: left; width: 100%; }
+.item .t { font-size: 14px; font-weight: 600; }
+.item .s { font-size: 12px; color: var(--gris); margin-top: 2px; }
+.item .m { text-align: right; font-size: 14px; font-weight: 600; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.item:active { background: rgba(3, 8, 14, .03); }
+.min-0 { min-width: 0; }
+.pill { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 8px; letter-spacing: .01em; }
+.p-cobrar { background: var(--ambar-f); color: var(--ambar-t); }
+.p-vigente { background: var(--azul-f); color: var(--azul-t); }
+.p-pagada { background: var(--verde-f); color: var(--verde-t); }
+.p-vencida { background: var(--rojo-f); color: var(--rojo-t); }
+.p-nota { background: #F1F5F9; color: #334155; }
+.caja { background: var(--blanco); border: 1px solid var(--borde); border-radius: 14px; padding: 13px 14px; }
+.pila { display: flex; flex-direction: column; gap: 10px; }
+.ln { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; padding: 3px 0; }
+.ln.tenue { color: var(--gris); }
+.ln.total { font-weight: 700; font-size: 15px; border-top: 1px solid var(--borde); margin-top: 4px; padding-top: 8px; }
+.link { color: var(--menta-osc); font-weight: 600; font-size: 12.5px; }
+.vacio { text-align: center; color: var(--gris); font-size: 13.5px; padding: 36px 10px; }
+.pie { text-align: center; font-size: 10.5px; color: #94A3B8; padding: 18px 0 8px; letter-spacing: .02em; }
+
+/* Botones */
+.btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; border-radius: 14px; padding: 14px; font-size: 15px; font-weight: 700; }
+.btn-menta { background: var(--menta); color: var(--noche); }
+.btn-wsp { background: var(--wsp); color: #fff; }
+.btn-claro { background: var(--blanco); border: 1px solid var(--borde); color: var(--tinta); font-weight: 600; }
+.btn-tenue { background: var(--tinta-clara); color: var(--noche); }
+.btn:disabled { background: var(--borde); color: #94A3B8; cursor: not-allowed; }
+.btn svg { width: 18px; height: 18px; }
+.acciones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.accion { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; color: #334155; text-align: center; }
+.accion .ic { width: 44px; height: 44px; border-radius: 50%; background: var(--blanco); border: 1px solid var(--borde); display: flex; align-items: center; justify-content: center; }
+.accion .ic svg { width: 19px; height: 19px; stroke: var(--tinta); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.accion.wsp .ic { background: var(--wsp); border-color: var(--wsp); }
+.accion.wsp .ic svg { stroke: #fff; }
+
+/* Inicio */
+.inicio-cab { padding-bottom: 76px; }
+.mic { width: 108px; height: 108px; border-radius: 50%; background: var(--menta); display: flex; align-items: center; justify-content: center; border: 7px solid var(--papel); margin: -60px auto 0; position: relative; box-shadow: 0 8px 22px rgba(22, 211, 171, .35); }
+.mic svg { width: 40px; height: 40px; fill: var(--noche); }
+.mic-txt { text-align: center; font-size: 14px; font-weight: 600; margin-top: 10px; }
+.franja { position: sticky; top: 0; z-index: 3; height: 0; }
+.franja > div { background: var(--noche); color: var(--tinta-clara); padding: 12px 18px; border-radius: 0 0 20px 20px; display: flex; justify-content: space-between; align-items: center; transform: translateY(-110%); transition: transform .22s ease; }
+.vista.compacta .franja > div { transform: translateY(0); }
+.mic-chico { width: 44px; height: 44px; border-radius: 50%; background: var(--menta); display: flex; align-items: center; justify-content: center; }
+.mic-chico svg { width: 20px; height: 20px; fill: var(--noche); }
+
+/* Buscador y filtros */
+.buscar { margin-top: 14px; display: flex; align-items: center; gap: 8px; background: var(--noche-2); border-radius: 12px; padding: 0 12px; }
+.buscar svg { width: 16px; height: 16px; stroke: var(--tinta-tenue); fill: none; stroke-width: 2; flex: none; }
+.buscar input { flex: 1; min-width: 0; background: none; border: 0; color: var(--tinta-clara); font: inherit; font-size: 14px; padding: 11px 0; }
+.buscar input::placeholder { color: var(--tinta-tenue); }
+.chips { display: flex; gap: 6px; overflow-x: auto; padding: 14px 18px 2px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; font-size: 12.5px; border-radius: 16px; padding: 7px 12px; border: 1px solid #CBD5E1; background: var(--blanco); }
+.chip.on { background: var(--noche); color: var(--tinta-clara); border-color: var(--noche); }
+.grupo { margin-top: 14px; }
+
+/* Dictado */
+.dictado { min-height: 100%; background: var(--noche); color: var(--tinta-clara); display: flex; flex-direction: column; padding: 22px 20px 24px; }
+.onda { display: flex; align-items: center; justify-content: center; gap: 4px; height: 44px; margin-top: 36px; }
+.onda i { width: 4px; border-radius: 2px; background: var(--menta); animation: latido 1s ease-in-out infinite; }
+@keyframes latido { 0%, 100% { height: 8px; } 50% { height: 38px; } }
+.mic-vivo { width: 120px; height: 120px; border-radius: 50%; background: var(--menta); display: flex; align-items: center; justify-content: center; margin: 54px auto 0; box-shadow: 0 0 0 14px rgba(22, 211, 171, .16), 0 0 0 30px rgba(22, 211, 171, .07); }
+.mic-vivo svg { width: 44px; height: 44px; fill: var(--noche); }
+.transcrito { font-size: 18px; line-height: 1.5; margin-top: 30px; min-height: 110px; }
+.transcrito .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--menta); vertical-align: -3px; margin-left: 2px; animation: parpadeo 1s steps(2) infinite; }
+@keyframes parpadeo { 50% { opacity: 0; } }
+.duda { background: #FFFBEB; border: 1px solid #FCD34D; border-radius: 14px; padding: 13px 14px; font-size: 14px; }
+.duda b { display: block; margin-bottom: 10px; }
+.opciones { display: flex; gap: 8px; flex-wrap: wrap; }
+.opciones button { border: 1px solid #CBD5E1; background: var(--blanco); border-radius: 20px; padding: 8px 13px; font-size: 13px; font-weight: 600; }
+.atenuado { opacity: .45; }
+.hecho { width: 64px; height: 64px; border-radius: 50%; background: var(--menta); display: flex; align-items: center; justify-content: center; margin: 6px auto 0; }
+.hecho svg { width: 32px; height: 32px; stroke: var(--noche); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Vista del PDF (como la plantilla aprobada el 12/10) */
+.hoja { background: #fff; border: 1px solid var(--borde); border-radius: 8px; padding: 16px 15px; font-size: 9.5px; color: #111827; box-shadow: 0 4px 14px rgba(3, 8, 14, .08); }
+.hoja .sup { display: flex; justify-content: space-between; gap: 10px; }
+.hoja .emisor b { font-size: 11.5px; display: block; }
+.hoja .sii { border: 1.5px solid #111; padding: 6px 8px; text-align: center; font-weight: 700; font-size: 9px; line-height: 1.5; flex: none; }
+.hoja .sii span { color: #B91C1C; }
+.hoja .rot { font-size: 7.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--gris); margin-top: 12px; }
+.hoja table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.hoja th { background: var(--noche); color: #fff; text-align: left; font-weight: 600; padding: 4px 6px; font-size: 8.5px; }
+.hoja td { padding: 5px 6px; border-bottom: 1px solid var(--borde); }
+.hoja .der { text-align: right; }
+.hoja .tot { margin-left: auto; width: 55%; margin-top: 8px; }
+.hoja .tot div { display: flex; justify-content: space-between; padding: 2px 0; }
+.hoja .tot .fin { font-weight: 700; color: var(--menta-osc); font-size: 11px; border-top: 1px solid #111; padding-top: 4px; }
+.hoja .timbre { display: flex; gap: 10px; align-items: center; margin-top: 12px; }
+.hoja .timbre i { width: 120px; height: 38px; background: repeating-linear-gradient(90deg, #111 0 2px, #fff 2px 3px, #111 3px 4px, #fff 4px 6px); flex: none; }
+.hoja .timbre small { font-size: 7.5px; color: var(--gris); line-height: 1.4; }
+.hoja .hecho-con { margin-top: 12px; text-align: center; font-size: 7.5px; color: var(--gris); }
+.hoja .hecho-con b { color: var(--menta-osc); }
+
+/* Ficha y cobranza */
+.datos { font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 5px; }
+.deuda { border-left: 4px solid #CBD5E1; }
+.deuda.vencida { border-left-color: var(--rojo); }
+.deuda .botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.deuda .botones button { border-radius: 10px; padding: 9px; font-size: 12.5px; font-weight: 700; }
+.b-wsp { background: var(--wsp); color: #fff; }
+.b-gris { background: #F1F5F9; color: #334155; }
+.punto { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.chat { background: #ECE5DD; border-radius: 14px; padding: 14px 12px; }
+.chat textarea { width: 100%; min-height: 168px; border: 0; border-radius: 12px 12px 3px 12px; background: #DCF8C6; padding: 11px 12px; font: inherit; font-size: 13.5px; line-height: 1.5; color: #111; resize: vertical; }
+.adjunto { background: #fff; border-radius: 10px; padding: 9px 11px; margin-top: 8px; font-size: 12.5px; display: flex; gap: 8px; align-items: center; }
+
+/* Aviso */
+.toast { position: absolute; left: 16px; right: 16px; bottom: calc(var(--tabs) + 14px); background: var(--noche); color: var(--tinta-clara); border-radius: 12px; padding: 12px 14px; font-size: 13px; line-height: 1.4; box-shadow: 0 10px 24px rgba(3, 8, 14, .3); z-index: 10; }
+.toast b { color: var(--menta); }
+
+@media (prefers-reduced-motion: reduce) {
+  .onda i, .transcrito .cursor { animation: none; height: 20px; }
+  .franja > div { transition: none; }
+}
+</style>
+
+</head>
+<body>
+<div class="marco">
+  <div class="tel" id="tel">
+    <div class="vista" id="vista"></div>
+    <nav class="tabs" id="tabs" aria-label="Secciones"></nav>
+    <div class="toast" id="toast" role="status" hidden></div>
+  </div>
+</div>
+
+<script src="logica.js"></script>
+<script>
+(function () {
+  const L = window.Logica;
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const MES_C = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'];
+  const ICONO = {
+    mic: '<svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11h-2z"/></svg>',
+    inicio: '<svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+    documentos: '<svg viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h5"/></svg>',
+    clientes: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.3-5.5 6.5-5.5s5.9 2.1 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c1.9.8 3.1 2.6 3.5 5.2"/></svg>',
+    cobranza: '<svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10h19M6.5 15h4"/></svg>',
+    buscar: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+    compartir: '<svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v12M7.5 7.5L12 3l4.5 4.5"/></svg>',
+    pdf: '<svg viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg>',
+    check: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    nota: '<svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4.5h4.5"/></svg>',
+    convertir: '<svg viewBox="0 0 24 24"><path d="M4 7h13l-3.5-3.5M20 17H7l3.5 3.5"/></svg>',
+    flecha: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  };
+
+  const estado = {
+    datos: L.ejemplo(),
+    pantalla: 'inicio', params: {},
+    filtro: 'todos', busqueda: '', busquedaCli: '',
+    dictado: null, frasesUsadas: 0, borrador: '',
+  };
+  const vista = document.getElementById('vista');
+  const tabs = document.getElementById('tabs');
+  const toast = document.getElementById('toast');
+  const HOY = estado.datos.hoy;
+
+  // ── utilidades ──────────────────────────────────────────────────────────
+  const $ = L.formatoCLP;
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function fechaCorta(f) {
+    const d = Math.round((Date.UTC(HOY.getFullYear(), HOY.getMonth(), HOY.getDate()) - Date.UTC(f.getFullYear(), f.getMonth(), f.getDate())) / 86400000);
+    if (d === 0) return 'hoy';
+    if (d === 1) return 'ayer';
+    return f.getDate() + ' ' + MES_C[f.getMonth()];
+  }
+  const fechaLarga = f => f.getDate() + ' de ' + MESES[f.getMonth()] + ' de ' + f.getFullYear();
+  const NOMBRE = { factura: 'Factura', cotizacion: 'Cotización', nota: 'Nota de crédito' };
+  const titulo = d => NOMBRE[d.tipo] + ' ' + d.numero;
+  function estadoDoc(d) {
+    if (d.tipo === 'cotizacion') return d.convertida ? ['Facturada', 'p-nota'] : ['Vigente', 'p-vigente'];
+    if (d.tipo === 'nota') return ['Nota de crédito', 'p-nota'];
+    if (d.pagada) return ['Pagada', 'p-pagada'];
+    const c = L.resumenCobranza([d], HOY).deudas[0];
+    return c.vencido ? ['Vencida', 'p-vencida'] : ['Por cobrar', 'p-cobrar'];
+  }
+  const montoDoc = d => d.tipo === 'nota' ? -d.total : d.total;
+  const iniciales = n => n.split(' ').filter(p => /^[A-ZÁÉÍÓÚÑ]/.test(p)).slice(0, 2).map(p => p[0]).join('');
+  const deudaCliente = id => L.resumenCobranza(estado.datos.documentos.filter(d => d.cliente.id === id), HOY).total;
+  const pie = '<div class="pie">Maqueta · datos de ejemplo</div>';
+  let temporizadorToast;
+  function aviso(html) {
+    toast.innerHTML = html;
+    toast.hidden = false;
+    clearTimeout(temporizadorToast);
+    temporizadorToast = setTimeout(() => { toast.hidden = true; }, 3200);
+  }
+  const enLaReal = txt => aviso('<b>En la versión real:</b> ' + txt);
+  // Abre el menú de compartir del celular cuando el navegador lo permite (no dentro de claude.ai).
+  function compartir(texto, siNoSePuede) {
+    if (!navigator.share) return enLaReal(siNoSePuede);
+    navigator.share({ title: 'InVoice', text: texto }).catch(err => {
+      if (!err || err.name !== 'AbortError') enLaReal(siNoSePuede);
+    });
+  }
+
+  function itemDoc(d) {
+    const [txt, cls] = estadoDoc(d);
+    return '<button class="item" data-ir="documento" data-id="' + d.id + '">' +
+      '<span class="min-0"><div class="t">' + titulo(d) + '</div><div class="s">' + esc(d.cliente.corto) + ' · ' + fechaCorta(d.fecha) + '</div></span>' +
+      '<span class="m num">' + $(montoDoc(d)) + '<span class="pill ' + cls + '">' + txt + '</span></span></button>';
+  }
+  const ordenados = docs => docs.slice().sort((a, b) => b.fecha - a.fecha || (b.tipo === 'factura') - (a.tipo === 'factura') || b.numero - a.numero);
+
+  // ── pantallas ───────────────────────────────────────────────────────────
+  function pInicio() {
+    const docs = estado.datos.documentos;
+    const mes = L.resumenMes(docs, HOY.getFullYear(), HOY.getMonth());
+    const deben = L.resumenCobranza(docs, HOY).total;
+    const ultimos = ordenados(docs);
+    return '<div class="franja"><div><div><div class="etq" style="color:var(--tinta-tenue)">' + MESES[HOY.getMonth()] + '</div>' +
+      '<div class="num" style="font-size:18px;font-weight:700">' + $(mes.facturado) + '</div></div>' +
+      '<button class="mic-chico" data-accion="dictar" aria-label="Dictar una venta">' + ICONO.mic + '</button></div></div>' +
+      '<header class="cab inicio-cab"><div class="fila"><span class="marca">In<b>Voice</b></span><span class="avatar">' + iniciales(estado.datos.empresa.nombre) + '</span></div>' +
+      '<div class="sub" style="margin-top:20px">Hola, ' + esc(estado.datos.empresa.usuario) + '</div>' +
+      '<div class="etq" style="margin-top:14px">Facturado en ' + MESES[HOY.getMonth()] + '</div>' +
+      '<div class="grande num">' + $(mes.facturado) + '</div>' +
+      '<div class="sub num">' + mes.cantidad + ' documentos · <span style="color:var(--menta)">te deben ' + $(deben) + '</span></div></header>' +
+      '<button class="mic" data-accion="dictar" aria-label="Dictar una venta">' + ICONO.mic + '</button>' +
+      '<div class="mic-txt">Toca y dicta tu venta</div>' +
+      '<div class="cuerpo"><div class="fila" style="margin-top:8px"><span class="etq">Últimos documentos</span><button class="link" data-ir="documentos">Ver todos</button></div>' +
+      '<div class="lista">' + ultimos.map(itemDoc).join('') + '</div>' + pie + '</div>';
+  }
+
+  function pDocumentos() {
+    const filtros = [['todos', 'Todos'], ['facturas', 'Facturas'], ['cotizaciones', 'Cotizaciones'], ['notas', 'Notas de crédito'], ['porcobrar', 'Por cobrar']];
+    const lista = ordenados(L.filtrarDocumentos(estado.datos.documentos, estado.filtro, estado.busqueda));
+    const grupos = {};
+    lista.forEach(d => { const k = d.fecha.getFullYear() * 12 + d.fecha.getMonth(); (grupos[k] = grupos[k] || []).push(d); });
+    const cuerpo = lista.length
+      ? Object.keys(grupos).sort((a, b) => b - a).map(k => '<div class="grupo"><div class="etq">' + MESES[k % 12] + '</div><div class="lista">' + grupos[k].map(itemDoc).join('') + '</div></div>').join('')
+      : '<div class="vacio">No hay documentos que calcen con la búsqueda.</div>';
+    return '<header class="cab"><h1 style="margin-top:0">Documentos</h1>' +
+      '<label class="buscar">' + ICONO.buscar + '<input id="buscar-docs" type="search" placeholder="Buscar por cliente, número o monto" value="' + esc(estado.busqueda) + '" autocomplete="off"></label></header>' +
+      '<div class="chips" role="tablist">' + filtros.map(([k, t]) => '<button class="chip' + (estado.filtro === k ? ' on' : '') + '" data-filtro="' + k + '">' + t + '</button>').join('') + '</div>' +
+      '<div class="cuerpo" id="lista-docs" style="padding-top:2px">' + cuerpo + pie + '</div>';
+  }
+
+  function pDocumento(id) {
+    const d = estado.datos.documentos.find(x => x.id === id);
+    const [txt, cls] = estadoDoc(d);
+    const acciones = [
+      '<button class="accion wsp" data-accion="compartir"><span class="ic">' + ICONO.compartir + '</span>Compartir</button>',
+      '<button class="accion" data-ir="pdf" data-id="' + d.id + '"><span class="ic">' + ICONO.pdf + '</span>Ver PDF</button>',
+    ];
+    if (d.tipo === 'factura') {
+      acciones.push(d.pagada
+        ? '<button class="accion" data-accion="impaga" data-id="' + d.id + '"><span class="ic">' + ICONO.nota + '</span>Desmarcar pago</button>'
+        : '<button class="accion" data-accion="pagada" data-id="' + d.id + '"><span class="ic">' + ICONO.check + '</span>Marcar pagada</button>');
+      acciones.push('<button class="accion" data-accion="nc"><span class="ic">' + ICONO.nota + '</span>Nota de crédito</button>');
+    } else if (d.tipo === 'cotizacion' && !d.convertida) {
+      acciones.push('<button class="accion" data-accion="convertir" data-id="' + d.id + '"><span class="ic">' + ICONO.convertir + '</span>Convertir en factura</button>');
+    }
+    return '<header class="cab"><button class="volver" data-accion="atras">' + ICONO.flecha + 'Volver</button>' +
+      '<h1>' + titulo(d) + '</h1><div class="fila" style="margin-top:4px"><span class="grande num" style="color:var(--menta);font-size:28px">' + $(montoDoc(d)) + '</span><span class="pill ' + cls + '">' + txt + '</span></div>' +
+      '<div class="sub">' + fechaLarga(d.fecha) + (d.tipo === 'cotizacion' ? '' : ' · Aceptado por el SII') + '</div></header>' +
+      '<div class="cuerpo pila">' +
+      '<button class="caja" style="text-align:left" data-ir="cliente" data-id="' + d.cliente.id + '"><div class="etq">Cliente</div><div style="font-weight:700;margin-top:3px">' + esc(d.cliente.nombre) + '</div><div class="s" style="font-size:12px;color:var(--gris)">RUT ' + L.formatoRut(d.cliente.rut) + ' · ' + esc(d.pago) + (d.tipo === 'factura' && !d.pagada ? ' · vence ' + fechaCorta(d.vence) : '') + '</div></button>' +
+      '<div class="caja num">' + d.items.map(i => '<div class="ln"><span>' + i.cant + ' × ' + esc(i.desc) + '</span><span>' + $(i.cant * i.precio) + '</span></div>').join('') +
+      '<div class="ln tenue"><span>Neto</span><span>' + $(d.neto) + '</span></div><div class="ln tenue"><span>IVA 19 %</span><span>' + $(d.iva) + '</span></div><div class="ln total"><span>Total</span><span>' + $(d.total) + '</span></div></div>' +
+      '<div class="acciones" style="grid-template-columns:repeat(' + acciones.length + ',1fr);margin-top:6px">' + acciones.join('') + '</div>' + pie + '</div>';
+  }
+
+  function hojaPDF(d) {
+    const e = estado.datos.empresa;
+    return '<div class="hoja num"><div class="sup"><div class="emisor"><b>' + esc(e.nombre) + '</b>RUT ' + L.formatoRut(e.rut) + '<br>Servicios técnicos y mantención</div>' +
+      '<div class="sii">R.U.T.: ' + L.formatoRut(e.rut) + '<br><span>' + NOMBRE[d.tipo].toUpperCase() + (d.tipo === 'cotizacion' ? '' : ' ELECTRÓNICA') + '</span><br>N° ' + d.numero + '</div></div>' +
+      '<div class="rot">Cliente</div><div><b>' + esc(d.cliente.nombre) + '</b> · RUT ' + L.formatoRut(d.cliente.rut) + '<br>' + esc(d.cliente.giro) + ' · ' + esc(d.cliente.direccion) + '</div>' +
+      '<div class="rot">Fecha ' + fechaLarga(d.fecha) + ' · ' + esc(d.pago) + '</div>' +
+      '<table><thead><tr><th>Detalle</th><th class="der">Cant.</th><th class="der">Precio</th><th class="der">Total</th></tr></thead><tbody>' +
+      d.items.map(i => '<tr><td>' + esc(i.desc) + '</td><td class="der">' + i.cant + '</td><td class="der">' + $(i.precio) + '</td><td class="der">' + $(i.cant * i.precio) + '</td></tr>').join('') + '</tbody></table>' +
+      '<div class="tot"><div><span>Neto</span><span>' + $(d.neto) + '</span></div><div><span>IVA 19 %</span><span>' + $(d.iva) + '</span></div><div class="fin"><span>Total</span><span>' + $(d.total) + '</span></div></div>' +
+      (d.tipo === 'cotizacion' ? '' : '<div class="timbre"><i></i><small>Timbre electrónico SII<br>Verifique documento: www.sii.cl</small></div>') +
+      '<div class="hecho-con">Hecho con <b>InVoice</b></div></div>';
+  }
+
+  function pPDF(id) {
+    const d = estado.datos.documentos.find(x => x.id === id);
+    return '<header class="cab"><button class="volver" data-accion="atras">' + ICONO.flecha + 'Volver</button><h1>' + titulo(d) + '</h1><div class="sub">Vista del PDF</div></header>' +
+      '<div class="cuerpo pila">' + hojaPDF(d) +
+      '<button class="btn btn-wsp" data-accion="compartir">Compartir por WhatsApp</button>' +
+      '<div class="acciones" style="grid-template-columns:1fr 1fr"><button class="btn btn-claro" data-accion="descargar">Descargar</button><button class="btn btn-claro" data-accion="correo">Enviar por correo</button></div>' + pie + '</div>';
+  }
+
+  function pClientes() {
+    const q = L.normalizar(estado.busquedaCli);
+    const lista = estado.datos.clientes.filter(c => !q || L.normalizar(c.nombre + ' ' + L.formatoRut(c.rut)).includes(q));
+    const items = lista.map(c => {
+      const debe = deudaCliente(c.id);
+      return '<button class="item" data-ir="cliente" data-id="' + c.id + '"><span class="fila min-0" style="justify-content:flex-start"><span class="avatar" style="background:var(--borde);color:#334155;flex:none">' + iniciales(c.nombre) + '</span>' +
+        '<span class="min-0"><div class="t">' + esc(c.corto) + '</div><div class="s num">' + L.formatoRut(c.rut) + '</div></span></span>' +
+        '<span class="m num" style="font-size:12.5px;color:' + (debe ? 'var(--ambar-t)' : 'var(--verde-t)') + '">' + (debe ? 'Debe<br>' + $(debe) : 'Al día') + '</span></button>';
+    }).join('');
+    return '<header class="cab"><div class="fila"><h1 style="margin-top:0">Clientes</h1><button class="link" style="color:var(--menta);font-size:24px;line-height:1" data-accion="nuevo-cliente" aria-label="Agregar cliente">＋</button></div>' +
+      '<label class="buscar">' + ICONO.buscar + '<input id="buscar-cli" type="search" placeholder="Buscar por nombre o RUT" value="' + esc(estado.busquedaCli) + '" autocomplete="off"></label></header>' +
+      '<div class="cuerpo" id="lista-cli"><div class="lista">' + (items || '<div class="vacio">No hay clientes que calcen con la búsqueda.</div>') + '</div>' + pie + '</div>';
+  }
+
+  function pCliente(id) {
+    const c = estado.datos.clientes.find(x => x.id === id);
+    const docs = ordenados(estado.datos.documentos.filter(d => d.cliente.id === id));
+    const facturado = docs.filter(d => d.tipo !== 'cotizacion' && d.fecha.getFullYear() === HOY.getFullYear()).reduce((s, d) => s + montoDoc(d), 0);
+    const debe = deudaCliente(id);
+    return '<header class="cab"><button class="volver" data-accion="atras">' + ICONO.flecha + 'Volver</button>' +
+      '<h1>' + esc(c.nombre) + '</h1><div class="sub num">RUT ' + L.formatoRut(c.rut) + ' · ' + esc(c.giro) + '</div>' +
+      '<div class="fila" style="margin-top:16px;align-items:flex-end"><div><div class="etq">Facturado en ' + HOY.getFullYear() + '</div><div class="num" style="font-size:20px;font-weight:700">' + $(facturado) + '</div></div>' +
+      '<div style="text-align:right"><div class="etq">Te debe</div><div class="num" style="font-size:20px;font-weight:700;color:' + (debe ? 'var(--ambar)' : 'var(--menta)') + '">' + (debe ? $(debe) : 'Nada') + '</div></div></div></header>' +
+      '<div class="cuerpo pila"><div class="caja datos"><div>' + esc(c.direccion) + '</div><div>' + esc(c.correo) + ' · ' + esc(c.telefono) + '</div><div style="color:var(--gris)">Suele pagar: ' + esc(c.pago.toLowerCase()) + '</div></div>' +
+      '<button class="btn btn-menta" data-accion="dictar" data-cliente="' + c.id + '">' + ICONO.mic.replace('<svg', '<svg fill="currentColor"') + 'Facturarle con la voz</button>' +
+      '<div><div class="etq" style="margin-top:6px">Documentos</div><div class="lista">' + docs.map(itemDoc).join('') + '</div></div>' + pie + '</div>';
+  }
+
+  function pCobranza() {
+    const c = L.resumenCobranza(estado.datos.documentos, HOY);
+    const pagadoMes = estado.datos.documentos.filter(d => d.tipo === 'factura' && d.pagada && d.fecha.getMonth() === HOY.getMonth() && d.fecha.getFullYear() === HOY.getFullYear());
+    const tarjetas = c.deudas.map(x => {
+      const d = x.doc;
+      const cuando = x.vencido ? 'venció hace ' + x.dias + (x.dias === 1 ? ' día' : ' días') : x.dias === 0 ? 'vence hoy' : 'vence en ' + (-x.dias) + (x.dias === -1 ? ' día' : ' días');
+      return '<div class="caja deuda' + (x.vencido ? ' vencida' : '') + '"><div class="fila"><b style="font-size:14px">' + esc(d.cliente.corto) + '</b><b class="num" style="font-size:14px">' + $(d.total) + '</b></div>' +
+        '<div class="s" style="font-size:12px;color:' + (x.vencido ? 'var(--rojo-t)' : 'var(--gris)') + ';margin-top:3px">' + titulo(d) + ' · ' + cuando + ' · ' + esc(d.pago.toLowerCase()) + '</div>' +
+        '<div class="botones"><button class="b-wsp" data-ir="recordatorio" data-id="' + d.id + '">Recordarle</button><button class="b-gris" data-accion="pagada" data-id="' + d.id + '">Marcar pagada</button></div></div>';
+    }).join('');
+    return '<header class="cab"><h1 style="margin-top:0">Cobranza</h1><div class="etq" style="margin-top:14px">Por cobrar</div>' +
+      '<div class="grande num" style="color:var(--ambar)">' + $(c.total) + '</div>' +
+      '<div class="fila num" style="font-size:12.5px;margin-top:6px;justify-content:flex-start;gap:16px"><span><i class="punto" style="background:var(--rojo)"></i>Vencido ' + $(c.vencido) + '</span><span style="color:var(--tinta-tenue)"><i class="punto" style="background:var(--tinta-tenue)"></i>Por vencer ' + $(c.porVencer) + '</span></div></header>' +
+      '<div class="cuerpo pila">' + (tarjetas || '<div class="vacio">Nadie te debe. Todo al día.</div>') +
+      '<div class="fila" style="margin-top:8px;font-size:13.5px"><span class="etq">Pagado este mes</span><span class="num" style="font-weight:700;color:var(--verde-t)">' + pagadoMes.length + ' facturas · ' + $(pagadoMes.reduce((s, d) => s + d.total, 0)) + '</span></div>' + pie + '</div>';
+  }
+
+  function textoRecordatorio(d) {
+    return 'Hola, ¿cómo están? Les escribo por la ' + titulo(d) + ' del ' + fechaLarga(d.fecha) + ', por ' + $(d.total) + ', que ' +
+      (L.resumenCobranza([d], HOY).deudas[0].vencido ? 'venció el ' : 'vence el ') + fechaLarga(d.vence) + '. Les adjunto el PDF. ¿Me confirman cuándo podrían pagarla? Gracias.\n\n— ' + estado.datos.empresa.usuario + ', ' + estado.datos.empresa.nombre;
+  }
+
+  function pRecordatorio(id) {
+    const d = estado.datos.documentos.find(x => x.id === id);
+    return '<header class="cab"><button class="volver" data-accion="atras">' + ICONO.flecha + 'Cerrar</button><h1>Recordatorio de pago</h1><div class="sub">' + esc(d.cliente.corto) + ' · ' + titulo(d) + ' · ' + $(d.total) + '</div></header>' +
+      '<div class="cuerpo pila"><label class="etq" for="msg-recordatorio">Así le llega (puedes editarlo)</label>' +
+      '<div class="chat"><textarea id="msg-recordatorio">' + esc(estado.borrador || textoRecordatorio(d)) + '</textarea>' +
+      '<div class="adjunto">' + ICONO.pdf.replace('<svg', '<svg width="16" height="16" fill="none" stroke="#B91C1C" stroke-width="1.8"') + 'Factura-' + String(d.numero).padStart(6, '0') + '.pdf</div></div>' +
+      '<div style="font-size:12px;color:var(--gris)">Se envía desde tu propio WhatsApp. A InVoice no le cuesta nada y a tu cliente le llega de ti.</div>' +
+      '<button class="btn btn-wsp" data-accion="enviar-recordatorio">Enviar por WhatsApp</button><button class="btn btn-claro" data-accion="correo">Enviar por correo</button>' + pie + '</div>';
+  }
+
+  // ── dictado ─────────────────────────────────────────────────────────────
+  function frasesPara(clienteId) {
+    const cl = id => estado.datos.clientes.find(c => c.id === id);
+    if (clienteId) {
+      const c = cl(clienteId);
+      return { texto: 'Factura a ' + c.corto + ', dos mantenciones a sesenta mil cada una, más IVA', cliente: c, items: [{ desc: 'Mantención', cant: 2, precio: 60000 }], ivaIncluido: false, pago: c.pago };
+    }
+    const lista = [
+      { texto: 'Factura a Los Robles, tres fletes a cuarenta mil cada uno, más IVA, al contado', cliente: cl('robles'), items: [{ desc: 'Flete Valparaíso–Santiago', cant: 3, precio: 40000 }], ivaIncluido: false, pago: 'Contado' },
+      { texto: 'Factura a Constructora Andes, instalación eléctrica de faena, ciento ochenta mil', cliente: cl('andes'), items: [{ desc: 'Instalación eléctrica de faena', cant: 1, precio: 180000 }], ivaIncluido: null, pago: '30 días' },
+    ];
+    return lista[estado.frasesUsadas++ % lista.length];
+  }
+
+  let temporizadorDictado;
+  function empezarDictado(clienteId) {
+    const f = frasesPara(clienteId);
+    estado.dictado = Object.assign({ paso: 1, palabras: 0, observacion: '' }, f, { items: f.items.map(i => Object.assign({}, i)) });
+    ir('dictado');
+    const total = f.texto.split(' ').length;
+    clearInterval(temporizadorDictado);
+    temporizadorDictado = setInterval(() => {
+      const dd = estado.dictado;
+      if (!dd || dd.paso !== 1) return clearInterval(temporizadorDictado);
+      dd.palabras = Math.min(total, dd.palabras + 1);
+      const el = document.getElementById('transcrito');
+      if (el) el.innerHTML = '«' + esc(f.texto.split(' ').slice(0, dd.palabras).join(' ')) + (dd.palabras === total ? '»' : '') + '<span class="cursor"></span>';
+      const reloj = document.getElementById('reloj');
+      if (reloj) reloj.textContent = '● 0:' + String(Math.min(59, Math.ceil(dd.palabras * 0.45))).padStart(2, '0');
+      if (dd.palabras === total) clearInterval(temporizadorDictado);
+    }, 230);
+  }
+
+  function totalesDictado(dd) {
+    const suma = dd.items.reduce((s, i) => s + i.cant * i.precio, 0);
+    if (dd.ivaIncluido === null) return null;
+    return dd.ivaIncluido ? L.calcularTotales(null, suma) : L.calcularTotales(suma, null);
+  }
+
+  function pDictado() {
+    const dd = estado.dictado;
+    if (dd.paso === 1) {
+      const barras = Array.from({ length: 22 }, (_, i) => '<i style="animation-delay:' + ((i * 137) % 900) / 1000 + 's"></i>').join('');
+      return '<div class="dictado"><div class="fila"><button class="volver" style="color:var(--tinta-tenue);font-size:14px" data-accion="cancelar-dictado">✕ Cancelar</button><span id="reloj" class="num" style="color:var(--menta);font-size:13px">● 0:00</span></div>' +
+        '<div class="mic-vivo">' + ICONO.mic + '</div><div class="onda" aria-hidden="true">' + barras + '</div>' +
+        '<div class="transcrito" id="transcrito">«' + esc(dd.texto.split(' ').slice(0, dd.palabras).join(' ')) + '<span class="cursor"></span></div>' +
+        '<div style="margin-top:auto"><button class="btn btn-tenue" data-accion="listo-dictado">Listo</button>' +
+        '<div class="pie" style="color:var(--tinta-tenue)">Maqueta · el dictado es simulado</div></div></div>';
+    }
+    if (dd.paso === 2) {
+      const t = totalesDictado(dd);
+      const suma = dd.items.reduce((s, i) => s + i.cant * i.precio, 0);
+      const duda = dd.ivaIncluido === null
+        ? '<div class="duda"><b>¿Los ' + $(suma) + ' que dictaste ya traen el IVA?</b><div class="opciones"><button data-accion="iva" data-v="no">No, súmale IVA</button><button data-accion="iva" data-v="si">Sí, ya lo traen</button></div></div>'
+        : '';
+      return '<header class="cab"><div class="fila"><button class="volver" data-accion="cancelar-dictado">' + ICONO.flecha + 'Volver</button><button class="volver" data-accion="redictar">Dictar de nuevo</button></div>' +
+        '<h1>Factura electrónica</h1><div class="grande num" style="color:var(--menta);font-size:28px">' + (t ? $(t.total) : '—') + '</div></header>' +
+        '<div class="cuerpo pila">' + duda +
+        '<div class="caja"><div class="fila"><span class="etq">Cliente</span><button class="link" data-accion="cambiar-cliente">Cambiar</button></div><div style="font-weight:700;margin-top:3px">' + esc(dd.cliente.nombre) + '</div><div style="font-size:12px;color:var(--gris)" class="num">RUT ' + L.formatoRut(dd.cliente.rut) + ' · ' + esc(dd.cliente.giro) + '</div></div>' +
+        '<div class="caja num' + (t ? '' : ' atenuado') + '"><div class="fila" style="margin-bottom:4px"><span class="etq">Detalle</span><button class="link" data-accion="editar-detalle">Editar</button></div>' +
+        dd.items.map(i => '<div class="ln"><span>' + i.cant + ' × ' + esc(i.desc) + '</span><span>' + $(i.cant * i.precio) + '</span></div>').join('') +
+        '<div class="ln tenue"><span>Neto</span><span>' + (t ? $(t.neto) : '—') + '</span></div><div class="ln tenue"><span>IVA 19 %</span><span>' + (t ? $(t.iva) : '—') + '</span></div><div class="ln total"><span>Total</span><span>' + (t ? $(t.total) : '—') + '</span></div></div>' +
+        '<div class="caja"><div class="ln"><span style="color:var(--gris)">Forma de pago</span><span>' + esc(dd.pago) + ' · <button class="link" data-accion="cambiar-pago">Cambiar</button></span></div>' +
+        '<div class="ln"><span style="color:var(--gris)">Observación</span>' + (dd.observacion ? '<span>' + esc(dd.observacion) + '</span>' : '<button class="link" data-accion="observacion">+ Agregar</button>') + '</div></div>' +
+        '<button class="btn btn-menta" data-accion="emitir"' + (t ? '' : ' disabled') + '>Emitir factura</button>' +
+        (t ? '' : '<div style="text-align:center;font-size:12px;color:var(--gris)">Responde la pregunta de arriba para poder emitir</div>') + pie + '</div>';
+    }
+    const d = estado.datos.documentos.find(x => x.id === dd.emitida);
+    return '<header class="cab" style="text-align:center;padding-top:26px"><div class="hecho">' + ICONO.check + '</div>' +
+      '<h1>Factura N° ' + d.numero + ' emitida</h1><div class="sub">Aceptada por el SII · ' + esc(d.cliente.corto) + ' · ' + $(d.total) + '</div></header>' +
+      '<div class="cuerpo pila">' + hojaPDF(d) +
+      '<button class="btn btn-wsp" data-accion="compartir">Compartir por WhatsApp</button>' +
+      '<div class="acciones" style="grid-template-columns:1fr 1fr"><button class="btn btn-claro" data-accion="descargar">Descargar</button><button class="btn btn-claro" data-accion="correo">Enviar por correo</button></div>' +
+      '<button class="btn btn-claro" data-accion="fin-dictado">Listo</button>' +
+      '<div class="pie">Maqueta · no se envió nada al SII</div></div>';
+  }
+
+  function emitir() {
+    const dd = estado.dictado;
+    const t = totalesDictado(dd);
+    if (!t) return;
+    const docs = estado.datos.documentos;
+    const numero = Math.max(...docs.filter(d => d.tipo === 'factura').map(d => d.numero)) + 1;
+    const vence = new Date(HOY.getTime() + (dd.pago === '30 días' ? 30 : 0) * 86400000);
+    docs.push({ id: 'factura' + numero, tipo: 'factura', numero, cliente: dd.cliente, fecha: new Date(HOY), items: dd.items, neto: t.neto, iva: t.iva, total: t.total, pago: dd.pago, vence, pagada: false, observacion: dd.observacion });
+    if (dd.desdeCotizacion) docs.find(d => d.id === dd.desdeCotizacion).convertida = true;
+    dd.emitida = 'factura' + numero;
+    dd.paso = 3;
+    dibujar();
+  }
+
+  // ── navegación ──────────────────────────────────────────────────────────
+  const historial = [];
+  function ir(pantalla, params) {
+    if (pantalla !== estado.pantalla || JSON.stringify(params || {}) !== JSON.stringify(estado.params)) {
+      historial.push({ pantalla: estado.pantalla, params: estado.params });
+    }
+    estado.pantalla = pantalla;
+    estado.params = params || {};
+    dibujar(true);
+  }
+  function atras() {
+    const prev = historial.pop() || { pantalla: 'inicio', params: {} };
+    estado.pantalla = prev.pantalla;
+    estado.params = prev.params;
+    estado.borrador = '';
+    dibujar(true);
+  }
+  function irTab(t) {
+    historial.length = 0;
+    estado.pantalla = t;
+    estado.params = {};
+    dibujar(true);
+  }
+
+  const RAIZ = { inicio: 'inicio', documentos: 'documentos', documento: 'documentos', pdf: 'documentos', clientes: 'clientes', cliente: 'clientes', cobranza: 'cobranza', recordatorio: 'cobranza' };
+  function dibujar(arriba) {
+    const p = estado.pantalla, id = estado.params.id;
+    const html = {
+      inicio: pInicio, documentos: pDocumentos, clientes: pClientes, cobranza: pCobranza, dictado: pDictado,
+      documento: () => pDocumento(id), pdf: () => pPDF(id), cliente: () => pCliente(id), recordatorio: () => pRecordatorio(id),
+    }[p]();
+    const scroll = vista.scrollTop;
+    vista.innerHTML = html;
+    vista.scrollTop = arriba ? 0 : scroll;
+    const conTabs = p !== 'dictado';
+    tabs.hidden = !conTabs;
+    vista.classList.toggle('sin-tabs', !conTabs);
+    vista.classList.remove('compacta');
+    if (conTabs) {
+      const raiz = RAIZ[p];
+      tabs.innerHTML = ['inicio', 'documentos', 'clientes', 'cobranza'].map(t =>
+        '<button class="tab' + (raiz === t ? ' on' : '') + '" data-tab="' + t + '"' + (raiz === t ? ' aria-current="page"' : '') + '>' + ICONO[t] + t[0].toUpperCase() + t.slice(1) + '</button>').join('');
+    }
+    toast.style.bottom = conTabs ? '' : '14px';
+  }
+
+  // Inicio: al bajar por el historial, el bloque oscuro se vuelve una franja
+  vista.addEventListener('scroll', () => {
+    if (estado.pantalla === 'inicio') vista.classList.toggle('compacta', vista.scrollTop > 200);
+  }, { passive: true });
+
+  function redibujarLista(contenedorId, input, pantalla) {
+    const pos = input.selectionStart;
+    const tmp = document.createElement('div');
+    tmp.innerHTML = pantalla();
+    document.getElementById(contenedorId).innerHTML = tmp.querySelector('#' + contenedorId).innerHTML;
+    input.setSelectionRange(pos, pos);
+  }
+  vista.addEventListener('input', e => {
+    if (e.target.id === 'buscar-docs') { estado.busqueda = e.target.value; redibujarLista('lista-docs', e.target, pDocumentos); }
+    if (e.target.id === 'buscar-cli') { estado.busquedaCli = e.target.value; redibujarLista('lista-cli', e.target, pClientes); }
+    if (e.target.id === 'msg-recordatorio') estado.borrador = e.target.value;
+  });
+
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('[data-tab]');
+    if (b) irTab(b.dataset.tab);
+  });
+
+  vista.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.ir) return ir(b.dataset.ir, b.dataset.id ? { id: b.dataset.id } : {});
+    if (b.dataset.filtro) { estado.filtro = b.dataset.filtro; return dibujar(); }
+    const dd = estado.dictado;
+    const doc = b.dataset.id && estado.datos.documentos.find(d => d.id === b.dataset.id);
+    switch (b.dataset.accion) {
+      case 'atras': return atras();
+      case 'dictar': return empezarDictado(b.dataset.cliente);
+      case 'listo-dictado':
+        clearInterval(temporizadorDictado);
+        dd.palabras = dd.texto.split(' ').length;
+        dd.paso = 2; return dibujar(true);
+      case 'cancelar-dictado': clearInterval(temporizadorDictado); estado.dictado = null; return atras();
+      case 'redictar': clearInterval(temporizadorDictado); return empezarDictado(dd.desdeCotizacion ? null : undefined);
+      case 'iva': dd.ivaIncluido = b.dataset.v === 'si'; return dibujar();
+      case 'cambiar-pago': dd.pago = dd.pago === 'Contado' ? '30 días' : 'Contado'; return dibujar();
+      case 'observacion': dd.observacion = 'Orden de compra 4512'; aviso('Observación agregada. <b>En la versión real</b> la escribes o la dictas.'); return dibujar();
+      case 'cambiar-cliente': return enLaReal('eliges otro cliente de tu lista o lo buscas por RUT.');
+      case 'editar-detalle': return enLaReal('cambias cantidades, precios o agregas líneas.');
+      case 'emitir': return emitir();
+      case 'fin-dictado': estado.dictado = null; return irTab('inicio');
+      case 'compartir': {
+        const actual = doc || estado.datos.documentos.find(d => d.id === (estado.params.id || (dd && dd.emitida)));
+        const texto = actual ? titulo(actual) + ' de ' + estado.datos.empresa.nombre + ' a ' + actual.cliente.nombre + ' por ' + $(actual.total) + '.' : 'Documento de InVoice';
+        return compartir(texto, 'se abre tu WhatsApp con el PDF listo para mandarlo a quien quieras.');
+      }
+      case 'descargar': return enLaReal('el PDF se guarda en tu celular.');
+      case 'correo': return enLaReal('se envía el PDF al correo del cliente.');
+      case 'nc': return enLaReal('dictas el motivo y se emite la nota de crédito que anula o corrige esta factura.');
+      case 'nuevo-cliente': return enLaReal('dictas o escribes el RUT y InVoice trae sus datos.');
+      case 'pagada': doc.pagada = true; aviso(titulo(doc) + ' marcada como <b>pagada</b>.'); return dibujar();
+      case 'impaga': doc.pagada = false; aviso(titulo(doc) + ' vuelve a <b>por cobrar</b>.'); return dibujar();
+      case 'enviar-recordatorio': {
+        const msg = document.getElementById('msg-recordatorio');
+        return compartir(msg ? msg.value : '', 'se abre tu WhatsApp con este mensaje y el PDF, para mandarlo desde tu número.');
+      }
+      case 'convertir':
+        estado.dictado = { paso: 2, cliente: doc.cliente, items: doc.items.map(i => Object.assign({}, i)), ivaIncluido: false, pago: doc.cliente.pago, observacion: 'Según ' + titulo(doc), desdeCotizacion: doc.id, texto: '', palabras: 0 };
+        return ir('dictado');
+    }
+  });
+  dibujar(true);
+})();
+</script>
+
+</body>
+</html>
