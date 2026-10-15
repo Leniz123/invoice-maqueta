@@ -125,10 +125,40 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .accion.wsp .ic svg { stroke: #fff; }
 
 /* Inicio */
-.inicio-cab { padding-bottom: 76px; }
-.mic { width: 108px; height: 108px; border-radius: 50%; background: var(--menta); display: flex; align-items: center; justify-content: center; border: 7px solid var(--papel); margin: -60px auto 0; position: relative; box-shadow: 0 8px 22px rgba(22, 211, 171, .35); }
-.mic svg { width: 40px; height: 40px; fill: var(--noche); }
-.mic-txt { text-align: center; font-size: 14px; font-weight: 600; margin-top: 10px; }
+.inicio-cab { padding-bottom: 84px; }
+.mic { width: 124px; height: 124px; border-radius: 50%; background: radial-gradient(circle at 34% 28%, #6FF5D8 0%, var(--menta) 52%, #0FB592 100%); display: flex; align-items: center; justify-content: center; border: 6px solid var(--papel); margin: -66px auto 0; position: relative; z-index: 1; box-shadow: 0 0 0 9px rgba(22, 211, 171, .22), 0 14px 34px rgba(22, 211, 171, .55); }
+.mic::before, .mic::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid var(--menta); animation: halo 2.4s ease-out infinite; pointer-events: none; }
+.mic::after { animation-delay: 1.2s; }
+@keyframes halo { from { transform: scale(1); opacity: .75; } to { transform: scale(1.55); opacity: 0; } }
+.mic svg { width: 48px; height: 48px; fill: var(--noche); }
+.mic:active { transform: scale(.96); }
+.mic-txt { text-align: center; font-size: 18px; font-weight: 700; margin-top: 14px; letter-spacing: -.2px; }
+.mic-sub { text-align: center; font-size: 12.5px; color: var(--gris); margin-top: 3px; }
+.escribir { display: flex; align-items: center; gap: 7px; margin: 12px auto 0; border: 1px solid #CBD5E1; background: var(--blanco); border-radius: 22px; padding: 8px 15px; font-size: 13px; font-weight: 600; color: #334155; }
+.escribir svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.texto-venta { width: 100%; min-height: 150px; border: 1px solid var(--borde); border-radius: 14px; background: var(--blanco); padding: 13px 14px; font: inherit; font-size: 16px; line-height: 1.5; color: var(--tinta); resize: vertical; }
+.ejemplo { text-align: left; border: 1px dashed #CBD5E1; background: var(--blanco); border-radius: 12px; padding: 10px 12px; font-size: 13px; color: #334155; }
+
+/* Análisis */
+.lectura { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.lectura b { font-size: 18px; }
+.grafico { width: 100%; height: auto; display: block; }
+.grafico .rejilla { stroke: var(--borde); stroke-width: 1; }
+.grafico .eje { fill: var(--gris); font-size: 10px; font-family: var(--f); }
+.grafico .zona { fill: transparent; cursor: pointer; }
+.grafico .zona:hover + .barra { opacity: .8; }
+.variacion { font-size: 12.5px; font-weight: 600; }
+.sube { color: var(--verde-t); } .baja { color: var(--rojo-t); }
+.cli { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 9px 0; border-bottom: 1px solid var(--borde); font-size: 13.5px; }
+.cli .riel { grid-column: 1 / -1; height: 6px; background: #EEF2F4; border-radius: 3px; overflow: hidden; }
+.cli .riel i { display: block; height: 100%; background: var(--menta); border-radius: 3px; }
+.alerta { background: var(--ambar-f); color: var(--ambar-t); border-radius: 12px; padding: 11px 13px; font-size: 13px; line-height: 1.45; display: flex; gap: 9px; }
+.alerta b { color: #78350F; }
+.nota-f29 { font-size: 12px; color: var(--gris); line-height: 1.45; margin-top: 8px; }
+details.tabla summary { font-size: 12.5px; color: var(--menta-osc); font-weight: 600; cursor: pointer; margin-top: 8px; }
+details.tabla table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+details.tabla td { padding: 5px 0; border-bottom: 1px solid var(--borde); }
+details.tabla td:last-child { text-align: right; }
 .franja { position: sticky; top: 0; z-index: 3; height: 0; }
 .franja > div { background: var(--noche); color: var(--tinta-clara); padding: 12px 18px; border-radius: 0 0 20px 20px; display: flex; justify-content: space-between; align-items: center; transform: translateY(-110%); transition: transform .22s ease; }
 .vista.compacta .franja > div { transform: translateY(0); }
@@ -202,6 +232,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .toast b { color: var(--menta); }
 
 @media (prefers-reduced-motion: reduce) {
+  .mic::before, .mic::after { animation: none; opacity: 0; }
   .onda i, .transcrito .cursor { animation: none; height: 20px; }
   .franja > div { transition: none; }
 }
@@ -229,6 +260,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
     documentos: '<svg viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h5"/></svg>',
     clientes: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.3-5.5 6.5-5.5s5.9 2.1 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c1.9.8 3.1 2.6 3.5 5.2"/></svg>',
     cobranza: '<svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10h19M6.5 15h4"/></svg>',
+    analisis: '<svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M21 20H3"/></svg>',
+    lapiz: '<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
     buscar: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
     compartir: '<svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v12M7.5 7.5L12 3l4.5 4.5"/></svg>',
     pdf: '<svg viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg>',
@@ -310,10 +343,12 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
       '<div class="etq" style="margin-top:14px">Facturado en ' + MESES[HOY.getMonth()] + '</div>' +
       '<div class="grande num">' + $(mes.facturado) + '</div>' +
       '<div class="sub num">' + mes.cantidad + ' documentos · <span style="color:var(--menta)">te deben ' + $(deben) + '</span></div></header>' +
-      '<button class="mic" data-accion="dictar" aria-label="Dictar una venta">' + ICONO.mic + '</button>' +
-      '<div class="mic-txt">Toca y dicta tu venta</div>' +
-      '<div class="cuerpo"><div class="fila" style="margin-top:8px"><span class="etq">Últimos documentos</span><button class="link" data-ir="documentos">Ver todos</button></div>' +
-      '<div class="lista">' + ultimos.map(itemDoc).join('') + '</div>' + pie + '</div>';
+      '<button class="mic" data-accion="dictar" aria-label="Dictar una factura">' + ICONO.mic + '</button>' +
+      '<div class="mic-txt">Dicta tu factura</div>' +
+      '<div class="mic-sub">Habla como se lo dirías a tu contador</div>' +
+      '<button class="escribir" data-accion="escribir">' + ICONO.lapiz + 'o escríbela</button>' +
+      '<div class="cuerpo"><div class="fila" style="margin-top:10px"><span class="etq">Últimos documentos</span><button class="link" data-ir="documentos">Ver todos</button></div>' +
+      '<div class="lista">' + ultimos.slice(0, 8).map(itemDoc).join('') + '</div>' + pie + '</div>';
   }
 
   function pDocumentos() {
@@ -436,6 +471,91 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
       '<button class="btn btn-wsp" data-accion="enviar-recordatorio">Enviar por WhatsApp</button><button class="btn btn-claro" data-accion="correo">Enviar por correo</button>' + pie + '</div>';
   }
 
+  // ── análisis ────────────────────────────────────────────────────────────
+  const pct = (n, dec) => n.toFixed(dec || 0).replace('.', ',') + ' %';
+  const Mayus = s => s[0].toUpperCase() + s.slice(1);
+  function etiquetaEje(v) {
+    if (v === 0) return '$0';
+    return v >= 1000000 ? '$' + String(v / 1000000).replace('.', ',') + ' M' : '$' + v / 1000 + ' mil';
+  }
+
+  function graficoVentas(meses, sel) {
+    const W = 340, H = 190, izq = 50, abajo = 26, arriba = 10;
+    const paso = 250000;
+    const tope = Math.max(paso, Math.ceil(Math.max(...meses.map(m => m.total)) / paso) * paso);
+    const y = v => arriba + (H - abajo - arriba) * (1 - v / tope);
+    const banda = (W - izq) / meses.length, ancho = 26, base = y(0);
+    let svg = '<svg class="grafico num" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Ventas de los últimos 6 meses">';
+    for (let v = 0; v <= tope; v += paso) {
+      svg += '<line class="rejilla" x1="' + izq + '" x2="' + W + '" y1="' + y(v) + '" y2="' + y(v) + '"/>' +
+        '<text class="eje" x="' + (izq - 6) + '" y="' + (y(v) + 3.5) + '" text-anchor="end">' + etiquetaEje(v) + '</text>';
+    }
+    meses.forEach((m, i) => {
+      const cx = izq + banda * i + banda / 2, x = cx - ancho / 2, top = y(m.total), r = Math.min(4, base - top);
+      const enCurso = i === meses.length - 1;
+      const color = i === sel ? 'var(--menta-osc)' : 'var(--menta)';
+      svg += '<rect class="zona" data-mes="' + i + '" x="' + (izq + banda * i) + '" y="' + arriba + '" width="' + banda + '" height="' + (H - arriba) + '"/>' +
+        '<path class="barra" d="M' + x + ',' + base + 'V' + (top + r) + 'Q' + x + ',' + top + ' ' + (x + r) + ',' + top + 'H' + (x + ancho - r) + 'Q' + (x + ancho) + ',' + top + ' ' + (x + ancho) + ',' + (top + r) + 'V' + base + 'Z" fill="' + color + '"' + (enCurso && i !== sel ? ' fill-opacity=".45"' : '') + ' pointer-events="none"/>' +
+        '<text class="eje" x="' + cx + '" y="' + (H - 9) + '" text-anchor="middle"' + (i === sel ? ' style="fill:var(--tinta);font-weight:600"' : '') + '>' + MES_C[m.mes] + (enCurso ? '*' : '') + '</text>';
+    });
+    return svg + '</svg>';
+  }
+
+  function pAnalisis() {
+    const docs = estado.datos.documentos, anio = HOY.getFullYear(), mes = HOY.getMonth();
+    const meses = L.ventasPorMes(docs, anio, mes, 6);
+    const ultimo = meses.length - 1;
+    const sel = estado.mesSel == null ? ultimo - 1 : estado.mesSel;
+    const m = meses[sel], previo = meses[sel - 1];
+    const enCurso = sel === ultimo;
+    let variacion = '';
+    if (enCurso) variacion = '<span class="variacion" style="color:var(--gris)">va al día ' + HOY.getDate() + '</span>';
+    else if (previo && previo.total) {
+      const v = 100 * (m.total - previo.total) / previo.total;
+      variacion = '<span class="variacion ' + (v >= 0 ? 'sube' : 'baja') + '">' + (v >= 0 ? '▲ +' : '▼ −') + pct(Math.abs(v), 1) + ' vs ' + MESES[previo.mes] + '</span>';
+    }
+    const anual = L.ventasPorMes(docs, anio, mes, mes + 1).reduce((s, x) => s + x.total, 0);
+    const top = L.mejoresClientes(docs, anio, 5);
+    const iva = L.ivaDelMes(docs, anio, mes);
+    const alerta = top[0] && top[0].pct > 40
+      ? '<div class="alerta" role="note"><span aria-hidden="true">⚠</span><span><b>Dependes mucho de ' + esc(top[0].cliente.corto) + '.</b> Es el ' + pct(top[0].pct) + ' de lo que vendiste este año; si deja de comprarte, se nota fuerte.</span></div>'
+      : '';
+    return '<header class="cab"><h1 style="margin-top:0">Análisis</h1>' +
+      '<div class="fila" style="margin-top:14px;align-items:flex-end"><div><div class="etq">Vendido en ' + anio + '</div><div class="grande num">' + $(anual) + '</div></div>' +
+      '<div style="text-align:right"><div class="etq">' + Mayus(MESES[mes]) + ' (en curso)</div><div class="num" style="font-size:18px;font-weight:700;color:var(--menta)">' + $(meses[ultimo].total) + '</div></div></div></header>' +
+      '<div class="cuerpo pila">' +
+      '<div class="caja"><div class="etq">Ventas por mes</div>' +
+      '<div class="lectura" style="margin-top:8px"><span><span style="font-size:13px;color:var(--gris)">' + Mayus(MESES[m.mes]) + (enCurso ? ' (en curso)' : '') + '</span><br><b class="num">' + $(m.total) + '</b></span>' + variacion + '</div>' +
+      graficoVentas(meses, sel) +
+      '<div style="font-size:11.5px;color:var(--gris);margin-top:2px">Toca un mes para ver su detalle. * ' + MESES[mes] + ' todavía no termina.</div>' +
+      '<details class="tabla"><summary>Ver como tabla</summary><table class="num">' + meses.map(x => '<tr><td>' + Mayus(MESES[x.mes]) + '</td><td>' + $(x.total) + '</td></tr>').join('') + '</table></details></div>' +
+      '<div class="caja"><div class="etq">Mejores clientes de ' + anio + '</div>' +
+      top.map(x => '<button class="cli" style="width:100%;text-align:left" data-ir="cliente" data-id="' + x.cliente.id + '"><span style="font-weight:600">' + esc(x.cliente.corto) + '</span><span class="num">' + $(x.total) + ' · ' + pct(x.pct) + '</span><span class="riel"><i style="width:' + x.pct.toFixed(1) + '%"></i></span></button>').join('') + '</div>' +
+      alerta +
+      '<div class="caja num"><div class="etq">IVA de ' + MESES[mes] + ' para el F29</div>' +
+      '<div class="ln" style="margin-top:6px"><span>IVA de tus facturas</span><span>' + $(iva.ivaFacturas) + '</span></div>' +
+      '<div class="ln tenue"><span>Menos IVA de notas de crédito</span><span>−' + $(iva.ivaNotas) + '</span></div>' +
+      '<div class="ln total"><span>IVA de tus ventas</span><span>' + $(iva.debito) + '</span></div>' +
+      '<div class="nota-f29">Es el IVA de lo que vendiste (débito fiscal). Para saber cuánto pagar en el F29, a esto se le resta el IVA de tus compras, que InVoice todavía no conoce.</div></div>' +
+      pie + '</div>';
+  }
+
+  // ── escribir la venta ───────────────────────────────────────────────────
+  const EJEMPLOS = [
+    'Factura a Los Robles, 3 fletes a 40.000 más IVA, contado',
+    'Factura a Constructora Andes por instalación eléctrica de faena, 180.000',
+  ];
+  function pEscribir() {
+    return '<header class="cab"><button class="volver" data-accion="atras">' + ICONO.flecha + 'Volver</button><h1>Escribe tu venta</h1>' +
+      '<div class="sub">Como se lo dirías a alguien: a quién, qué vendiste, cuánto y si es más IVA.</div></header>' +
+      '<div class="cuerpo pila"><label class="etq" for="texto-venta">Tu venta</label>' +
+      '<textarea class="texto-venta" id="texto-venta" placeholder="Ej.: Factura a Los Robles, 3 fletes a 40.000 más IVA">' + esc(estado.texto || '') + '</textarea>' +
+      '<div class="etq" style="margin-top:4px">O toca un ejemplo</div>' +
+      EJEMPLOS.map((t, i) => '<button class="ejemplo" data-accion="ejemplo-texto" data-i="' + i + '">«' + esc(t) + '»</button>').join('') +
+      '<button class="btn btn-menta" data-accion="leer-texto">Revisar factura</button>' +
+      '<div style="font-size:11.5px;color:var(--gris);text-align:center">En la maqueta la lectura es simple. En la versión real la hace la misma IA que entiende tus audios.</div>' + pie + '</div>';
+  }
+
   // ── dictado ─────────────────────────────────────────────────────────────
   function frasesPara(clienteId) {
     const cl = id => estado.datos.clientes.find(c => c.id === id);
@@ -491,7 +611,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
       const duda = dd.ivaIncluido === null
         ? '<div class="duda"><b>¿Los ' + $(suma) + ' que dictaste ya traen el IVA?</b><div class="opciones"><button data-accion="iva" data-v="no">No, súmale IVA</button><button data-accion="iva" data-v="si">Sí, ya lo traen</button></div></div>'
         : '';
-      return '<header class="cab"><div class="fila"><button class="volver" data-accion="cancelar-dictado">' + ICONO.flecha + 'Volver</button><button class="volver" data-accion="redictar">Dictar de nuevo</button></div>' +
+      return '<header class="cab"><div class="fila"><button class="volver" data-accion="cancelar-dictado">' + ICONO.flecha + 'Volver</button>' +
+        (dd.escrito ? '<button class="volver" data-accion="cancelar-dictado">Editar texto</button>' : '<button class="volver" data-accion="redictar">Dictar de nuevo</button>') + '</div>' +
         '<h1>Factura electrónica</h1><div class="grande num" style="color:var(--menta);font-size:28px">' + (t ? $(t.total) : '—') + '</div></header>' +
         '<div class="cuerpo pila">' + duda +
         '<div class="caja"><div class="fila"><span class="etq">Cliente</span><button class="link" data-accion="cambiar-cliente">Cambiar</button></div><div style="font-weight:700;margin-top:3px">' + esc(dd.cliente.nombre) + '</div><div style="font-size:12px;color:var(--gris)" class="num">RUT ' + L.formatoRut(dd.cliente.rut) + ' · ' + esc(dd.cliente.giro) + '</div></div>' +
@@ -551,24 +672,27 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
     dibujar(true);
   }
 
-  const RAIZ = { inicio: 'inicio', documentos: 'documentos', documento: 'documentos', pdf: 'documentos', clientes: 'clientes', cliente: 'clientes', cobranza: 'cobranza', recordatorio: 'cobranza' };
+  const RAIZ = { inicio: 'inicio', documentos: 'documentos', documento: 'documentos', pdf: 'documentos', clientes: 'clientes', cliente: 'clientes', cobranza: 'cobranza', recordatorio: 'cobranza', analisis: 'analisis' };
+  const TABS = [['inicio', 'Inicio'], ['documentos', 'Documentos'], ['clientes', 'Clientes'], ['cobranza', 'Cobranza'], ['analisis', 'Análisis']];
+  const SIN_TABS = ['dictado', 'escribir'];
   function dibujar(arriba) {
     const p = estado.pantalla, id = estado.params.id;
     const html = {
       inicio: pInicio, documentos: pDocumentos, clientes: pClientes, cobranza: pCobranza, dictado: pDictado,
+      analisis: pAnalisis, escribir: pEscribir,
       documento: () => pDocumento(id), pdf: () => pPDF(id), cliente: () => pCliente(id), recordatorio: () => pRecordatorio(id),
     }[p]();
     const scroll = vista.scrollTop;
     vista.innerHTML = html;
     vista.scrollTop = arriba ? 0 : scroll;
-    const conTabs = p !== 'dictado';
+    const conTabs = !SIN_TABS.includes(p);
     tabs.hidden = !conTabs;
     vista.classList.toggle('sin-tabs', !conTabs);
     vista.classList.remove('compacta');
     if (conTabs) {
       const raiz = RAIZ[p];
-      tabs.innerHTML = ['inicio', 'documentos', 'clientes', 'cobranza'].map(t =>
-        '<button class="tab' + (raiz === t ? ' on' : '') + '" data-tab="' + t + '"' + (raiz === t ? ' aria-current="page"' : '') + '>' + ICONO[t] + t[0].toUpperCase() + t.slice(1) + '</button>').join('');
+      tabs.innerHTML = TABS.map(([t, nombre]) =>
+        '<button class="tab' + (raiz === t ? ' on' : '') + '" data-tab="' + t + '"' + (raiz === t ? ' aria-current="page"' : '') + '>' + ICONO[t] + nombre + '</button>').join('');
     }
     toast.style.bottom = conTabs ? '' : '14px';
   }
@@ -589,6 +713,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
     if (e.target.id === 'buscar-docs') { estado.busqueda = e.target.value; redibujarLista('lista-docs', e.target, pDocumentos); }
     if (e.target.id === 'buscar-cli') { estado.busquedaCli = e.target.value; redibujarLista('lista-cli', e.target, pClientes); }
     if (e.target.id === 'msg-recordatorio') estado.borrador = e.target.value;
+    if (e.target.id === 'texto-venta') estado.texto = e.target.value;
   });
 
   tabs.addEventListener('click', e => {
@@ -597,6 +722,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
   });
 
   vista.addEventListener('click', e => {
+    const zona = e.target.closest('[data-mes]');
+    if (zona) { estado.mesSel = Number(zona.dataset.mes); return dibujar(); }
     const b = e.target.closest('button');
     if (!b) return;
     if (b.dataset.ir) return ir(b.dataset.ir, b.dataset.id ? { id: b.dataset.id } : {});
@@ -618,7 +745,18 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
       case 'cambiar-cliente': return enLaReal('eliges otro cliente de tu lista o lo buscas por RUT.');
       case 'editar-detalle': return enLaReal('cambias cantidades, precios o agregas líneas.');
       case 'emitir': return emitir();
-      case 'fin-dictado': estado.dictado = null; return irTab('inicio');
+      case 'fin-dictado': estado.dictado = null; estado.texto = ''; return irTab('inicio');
+      case 'escribir': return ir('escribir');
+      case 'ejemplo-texto': estado.texto = EJEMPLOS[Number(b.dataset.i)]; return dibujar();
+      case 'leer-texto': {
+        const texto = (estado.texto || '').trim();
+        if (!texto) return aviso('Escribe tu venta o toca uno de los ejemplos.');
+        const r = L.leerTexto(texto, estado.datos.clientes);
+        if (!r.cliente) return aviso('No encontré el cliente. Escribe el nombre de uno de tus clientes, por ejemplo Los Robles.');
+        if (!r.items.length) return aviso('Falta el monto. Agrega cuánto fue, por ejemplo «3 fletes a 40.000».');
+        estado.dictado = Object.assign({ paso: 2, texto, palabras: 0, observacion: '', escrito: true }, r);
+        return ir('dictado');
+      }
       case 'compartir': {
         const actual = doc || estado.datos.documentos.find(d => d.id === (estado.params.id || (dd && dd.emitida)));
         const texto = actual ? titulo(actual) + ' de ' + estado.datos.empresa.nombre + ' a ' + actual.cliente.nombre + ' por ' + $(actual.total) + '.' : 'Documento de InVoice';
