@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#03080E">
+<meta name="color-scheme" content="only light">
 <meta name="description" content="Maqueta de la app de InVoice, con datos de ejemplo.">
 <meta name="robots" content="noindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,7 +43,8 @@
   --marco: #0D1117;
   --f: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --tabs: 62px;
-  color-scheme: light;
+  /* Un solo diseño: que el navegador no lo oscurezca por su cuenta en modo oscuro */
+  color-scheme: only light;
 }
 html, body { height: 100%; }
 body { margin: 0; background: var(--mesa); color: var(--tinta); font-family: var(--f); -webkit-font-smoothing: antialiased; }
